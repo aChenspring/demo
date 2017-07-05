@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "tb_record")
@@ -23,7 +24,8 @@ public class Record {
 	private String deviceid;
 	@Column(name="createtime")
 	private String createtime;
-	
+
+	@Expose
 	@OneToOne(cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.EAGER)
 	@JoinColumn(name = "recordid")
 	private ElevatorStatus elevatorStatus;

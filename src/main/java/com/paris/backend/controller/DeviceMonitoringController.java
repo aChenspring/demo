@@ -4,11 +4,19 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jaxrs.json.annotation.JSONP;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.boot.json.JsonJsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +46,7 @@ public class DeviceMonitoringController {
 		modelAndView.addObject("devices", devices);
 
 		modelAndView.setViewName("devices");
+
 		return modelAndView;
 	}
 	
@@ -78,10 +87,23 @@ public class DeviceMonitoringController {
 		ModelAndView modelAndView = new ModelAndView();
 		String id=request.getParameter("id");
 		List<Record> record=deviceMonitoringService.findRecordById(id);
-
 		modelAndView.addObject("record", record==null?null:record.get(0));
-
 		modelAndView.setViewName("status");
 		return modelAndView;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/refreshDeviceStatus", method = RequestMethod.GET)
+	public String refreshDeviceStatus(WebRequest request)
+	{
+		String id = request.getParameter("id");
+		List<Record> record = deviceMonitoringService.findRecordById(id);
+		GsonBuilder gsonBuilder= new GsonBuilder();
+		gsonBuilder.excludeFieldsWithoutExposeAnnotation();  //使用@Expose 忽略字段
+		gsonBuilder.serializeNulls();    //序列化空值
+		Gson gson=gsonBuilder.create();
+		String jsonRecord=gson.toJson(record==null?null:record.get(0));
+		System.out.println(jsonRecord);
+		return jsonRecord;
 	}
 }

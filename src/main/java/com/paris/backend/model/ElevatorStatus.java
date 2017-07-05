@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "tb_elevatorstatus")
@@ -29,22 +30,27 @@ public class ElevatorStatus {
 	
 	@Column(name="datatime")
 	private String datatime;
-	
+
+	@Expose
 	@Column(name="floor")
 	private String floor;
-	
+
+	@Expose
 	@Column(name="rundirection")
 	private String rundirection;
-	
+
+	@Expose
 	@Column(name="bodystatus")
 	private String bodystatus;
-	
+
+	@Expose
 	@Column(name="doorstatus")
 	private String doorstatus;
 
 	@Column(name="sensorstatus")
 	private String sensorstatus;
-	
+
+	@Expose
 	@Column(name="elevatorspeed")
 	private String elevatorspeed;
 	
@@ -209,8 +215,5 @@ public class ElevatorStatus {
 	public void setRecord(Record record) {
 		this.record = record;
 	}
-
-
-
 
 }
