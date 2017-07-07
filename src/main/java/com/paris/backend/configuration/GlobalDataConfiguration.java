@@ -14,19 +14,20 @@ import javax.sql.DataSource;
  * Created by achen on 2017/7/6 0006.
  */
 @Configuration
-public class GlobalDataConfiguration {
+public class GlobalDataConfiguration
+{
     @Bean(name="primaryDataSource")
     @Primary
     @ConfigurationProperties(prefix="datasource.primary")
-    public DataSource primaryDataSource() {
-        System.out.println("-------------------- primaryDataSource init ---------------------");
+    public DataSource primaryDataSource()
+    {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name="secondaryDataSource")
     @ConfigurationProperties(prefix="datasource.secondary")
-    public DataSource secondaryDataSource() {
-        System.out.println("-------------------- secondaryDataSource init ---------------------");
+    public DataSource secondaryDataSource()
+    {
         return DataSourceBuilder.create().build();
     }
 }

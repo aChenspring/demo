@@ -26,7 +26,8 @@ import java.util.Map;
         entityManagerFactoryRef="entityManagerFactoryPrimary",
         transactionManagerRef="transactionManagerPrimary",
         basePackages= { "com.paris.backend.repository" }) //设置Repository所在位置
-public class PrimaryConfig {
+public class PrimaryConfig
+{
 
     @Autowired
     @Qualifier("primaryDataSource")
@@ -34,13 +35,15 @@ public class PrimaryConfig {
 
     @Primary
     @Bean(name = "entityManagerPrimary")
-    public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
+    public EntityManager entityManager(EntityManagerFactoryBuilder builder)
+    {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }
 
     @Primary
     @Bean(name = "entityManagerFactoryPrimary")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder)
+    {
         return builder
                 .dataSource(primaryDataSource)
                 .properties(getVendorProperties(primaryDataSource))
@@ -52,13 +55,15 @@ public class PrimaryConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
+    private Map<String, String> getVendorProperties(DataSource dataSource)
+    {
         return jpaProperties.getHibernateProperties(dataSource);
     }
 
     @Primary
     @Bean(name = "transactionManagerPrimary")
-    public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
+    public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder)
+    {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
 

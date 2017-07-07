@@ -25,19 +25,22 @@ import java.util.Map;
         entityManagerFactoryRef="entityManagerFactorySecondary",
         transactionManagerRef="transactionManagerSecondary",
         basePackages= { "com.paris.backend.SecondaryRepository" }) //设置Repository所在位置
-public class SecondaryConfig {
+public class SecondaryConfig
+{
 
     @Autowired
     @Qualifier("secondaryDataSource")
     private DataSource secondaryDataSource;
 
     @Bean(name = "entityManagerSecondary")
-    public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
+    public EntityManager entityManager(EntityManagerFactoryBuilder builder)
+    {
         return entityManagerFactorySecondary(builder).getObject().createEntityManager();
     }
 
     @Bean(name = "entityManagerFactorySecondary")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary (EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary (EntityManagerFactoryBuilder builder)
+    {
         return builder
                 .dataSource(secondaryDataSource)
                 .properties(getVendorProperties(secondaryDataSource))
@@ -49,12 +52,14 @@ public class SecondaryConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
+    private Map<String, String> getVendorProperties(DataSource dataSource)
+    {
         return jpaProperties.getHibernateProperties(dataSource);
     }
 
     @Bean(name = "transactionManagerSecondary")
-    PlatformTransactionManager transactionManagerSecondary(EntityManagerFactoryBuilder builder) {
+    PlatformTransactionManager transactionManagerSecondary(EntityManagerFactoryBuilder builder)
+    {
         return new JpaTransactionManager(entityManagerFactorySecondary(builder).getObject());
     }
 

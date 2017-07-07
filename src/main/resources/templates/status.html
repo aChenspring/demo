@@ -4,7 +4,6 @@
 	<head>
 		<!--去掉刷新标签，改全页刷新为局部ajax刷新-->
 		<!--<meta http-equiv="refresh" content="2;" /> -->
-
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
 		<title>Blank Page - Ace Admin</title>
@@ -986,12 +985,6 @@
 						<div class="row">
 							<div class="col-xs-12" id="paramContainer">
 								<!-- PAGE CONTENT BEGINS -->
-									<!--<p>Floor:</p><p th:text="${record.elevatorStatus.floor}"/>-->
-									<!--<p>Door Status:</p><p th:text="${record.elevatorStatus.doorstatus}"/>-->
-									<!--<p>Speed:</p><p th:text="${record.elevatorStatus.elevatorspeed}"/>-->
-									<!--<p>Direction:</p><p th:text="${record.elevatorStatus.rundirection}"/>-->
-									<!--<p  id="aa">Body Status:</p><p th:text="${record.elevatorStatus.bodystatus}"/>-->
-								<!-- PAGE CONTENT ENDS -->
 								<div class="col-xs-12 col-sm-6 widget-container-col ui-sortable" id="widget-container-col-2">
 									<div class="widget-box widget-color-green" id="widget-box-2">
 										<div class="widget-header">
@@ -1105,11 +1098,7 @@
 										</div>
 									</div>
 								</div>
-								<!--<p>Floor: <span>${record.elevatorStatus.floor}</span></p>-->
-								<!--<p>Door: <span>${record.elevatorStatus.doorstatus}</span></p>-->
-								<!--<p>Speed: <span${record.elevatorStatus.elevatorspeed}></span></p>-->
-								<!--<p>Direction: <span>${record.elevatorStatus.rundirection}</span></p>-->
-								<!--<p>Body Status: <span>${record.elevatorStatus.bodystatus}</span></p>-->
+								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 					</div><!-- /.page-content -->
@@ -1171,24 +1160,18 @@
 		<!-- inline scripts related to this page -->
 		<script>
 			$(function(){
-				function refreshDeviceStatus() {
+				function refreshDeviceStatus() {//异步刷新
 					var url = "/refreshDeviceStatus";
 					var id=getQueryString("id");
 					var data = {id: id};
 					$.ajax({
 						type: "get",
-						async: false, //同步请求
+						async: true,//异步请求
 						url: url,
 						data: data,
 						timeout: 1000,
 						success: function (datas) {
 							var record = JSON.parse(datas);
-//							$("#paramContainer").find("p").eq(0).find("span").html(record.elevatorStatus.floor);
-//							$("#paramContainer").find("p").eq(1).find("span").html(record.elevatorStatus.doorstatus);
-//							$("#paramContainer").find("p").eq(2).find("span").html(record.elevatorStatus.elevatorspeed);
-//							$("#paramContainer").find("p").eq(3).find("span").html(record.elevatorStatus.rundirection);
-//							$("#paramContainer").find("p").eq(4).find("span").html(record.elevatorStatus.bodystatus);
-
 							$("#deviceStatusTable").find("tbody").find("tr")
 									.eq(0).find("td").eq(1).find("a").html(record.elevatorStatus.floor);
 							$("#deviceStatusTable").find("tbody").find("tr")
@@ -1205,7 +1188,7 @@
 						}
 					});
 				}
-				setInterval(refreshDeviceStatus,1000);
+				setInterval(refreshDeviceStatus,1000);//定时刷新
 			})
 //			获取url中指定的参数值
 			function getQueryString(name) {
