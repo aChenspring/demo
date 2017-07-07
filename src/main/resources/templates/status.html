@@ -1044,7 +1044,7 @@
 														<td class="">Floor</td>
 
 														<td>
-															<a href="#">${record.elevatorStatus.floor}</a>
+															<a href="#"></a>
 														</td>
 
 														<td class="hidden-480">
@@ -1056,7 +1056,7 @@
 														<td class="">Door</td>
 
 														<td>
-															<a href="#">${record.elevatorStatus.doorstatus}</a>
+															<a href="#"></a>
 														</td>
 
 														<td class="hidden-480">
@@ -1068,7 +1068,7 @@
 														<td class="">Speed</td>
 
 														<td>
-															<a href="#">${record.elevatorStatus.elevatorspeed}</a>
+															<a href="#"></a>
 														</td>
 
 														<td class="hidden-480">
@@ -1080,7 +1080,7 @@
 														<td class="">Direction</td>
 
 														<td>
-															<a href="#">${record.elevatorStatus.rundirection}</a>
+															<a href="#"></a>
 														</td>
 
 														<td class="hidden-480">
@@ -1092,7 +1092,7 @@
 														<td class="">Body Status</td>
 
 														<td>
-															<a href="#">${record.elevatorStatus.bodystatus}</a>
+															<a href="#"></a>
 														</td>
 
 														<td class="hidden-480">
@@ -1171,7 +1171,6 @@
 		<!-- inline scripts related to this page -->
 		<script>
 			$(function(){
-				setInterval(refreshDeviceStatus,1000);
 				function refreshDeviceStatus() {
 					var url = "/refreshDeviceStatus";
 					var id=getQueryString("id");
@@ -1202,10 +1201,11 @@
 									.eq(4).find("td").eq(1).find("a").html(record.elevatorStatus.bodystatus);
 						},
 						error: function () {
-							alert("失败，请稍后再试！");
+//							alert("失败，请稍后再试！");
 						}
 					});
 				}
+				setInterval(refreshDeviceStatus,1000);
 			})
 //			获取url中指定的参数值
 			function getQueryString(name) {

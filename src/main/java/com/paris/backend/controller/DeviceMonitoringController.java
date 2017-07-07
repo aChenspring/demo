@@ -1,32 +1,23 @@
 package com.paris.backend.controller;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.annotation.JSONP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
+import com.paris.backend.secondaryModel.Record;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
-import org.springframework.boot.json.GsonJsonParser;
-import org.springframework.boot.json.JsonJsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.paris.backend.constants.OrganizationType;
 import com.paris.backend.model.Device;
 import com.paris.backend.model.ElevatorModel;
 import com.paris.backend.model.ElevatorType;
 import com.paris.backend.model.Manufacturer;
 import com.paris.backend.model.Organization;
-import com.paris.backend.model.Record;
 import com.paris.backend.service.BasicInfoService;
 import com.paris.backend.service.DeviceMonitoringService;
 
