@@ -18,7 +18,8 @@ public class ElevatorStatus {
 	
 	@Column(name="sendtime")
 	private String sendtime;
-	
+
+	@Expose
 	@Column(name="datatime")
 	private String datatime;
 
